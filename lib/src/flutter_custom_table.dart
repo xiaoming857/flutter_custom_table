@@ -61,7 +61,6 @@ class FlutterCustomTable extends StatelessWidget {
     }).toList();
     List<double> horizontalPaddings = this.headers.map((e) => e.horizontalPadding).toList();
     List<int> ratios = headers.map((e) => e.ratio).toList();
-    print(alignments);
     return Container(
       margin: this.margin,
       child: Column(
