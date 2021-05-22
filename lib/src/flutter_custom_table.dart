@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 /// A customizable table's column size with flex ratio.
 class FlutterCustomTable extends StatelessWidget {
   final List<TableHeaderCell> headers;
+  final Color headersColor;
+  final double headersHeight;
   final EdgeInsets margin;
   final List<TableBodyRow> rows;
 
@@ -12,6 +14,8 @@ class FlutterCustomTable extends StatelessWidget {
   FlutterCustomTable({
     Key key,
     @required this.headers,
+    this.headersColor = Colors.transparent,
+    this.headersHeight = 50.0,
     this.margin = const EdgeInsets.all(10.0),
     @required this.rows,
   }) : assert(headers != null && headers.isNotEmpty),
@@ -30,7 +34,11 @@ class FlutterCustomTable extends StatelessWidget {
       child: Column(
         children: [
           // Header
-          Row(children: headers),
+          Container(
+            color: this.headersColor,
+            height: this.headersHeight,
+            child: Row(
+              children: this.headers)),
 
 
           Divider(
@@ -60,25 +68,20 @@ class FlutterCustomTable extends StatelessWidget {
 class TableHeaderCell extends StatelessWidget {
   final Alignment alignment;
   final Widget content;
-  final double height;
   final double horizontalPadding;
   final int ratio;
-  final double verticalPadding;
 
 
   TableHeaderCell({
     Key key,
     this.alignment = Alignment.centerLeft,
     @required this.content,
-    this.height,
     this.horizontalPadding = 15.0,
     this.ratio = 1,
-    this.verticalPadding = 20.0,
   }) : assert(alignment != null),
         assert(content != null),
         assert(horizontalPadding != null && horizontalPadding >= 0),
         assert(ratio != null && ratio > 0),
-        assert(verticalPadding != null && verticalPadding >= 0),
         super(key: key);
 
   @override
@@ -88,8 +91,7 @@ class TableHeaderCell extends StatelessWidget {
       child: Container(
         alignment: this.alignment,
         child: this.content,
-        height: this.height,
-        padding: EdgeInsets.symmetric(horizontal: this.horizontalPadding, vertical: this.verticalPadding),
+        padding: EdgeInsets.symmetric(horizontal: this.horizontalPadding),
       ),
     );
   }
