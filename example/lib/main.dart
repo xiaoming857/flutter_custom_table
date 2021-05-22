@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: SingleChildScrollView(
           child: FlutterCustomTable(
+            headersVerticalAlignment: VerticalAlignment.bottom,
             headers: [
               TableHeaderCell(
                 content: Text('No.'),
