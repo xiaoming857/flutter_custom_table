@@ -28,6 +28,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void onTap(String text) => debugPrint(text);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,30 +45,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 content: Text('No.'),
                 ratio: 1,
               ),
-
               TableHeaderCell(
                 content: Text('Header 1'),
                 ratio: 10,
               ),
-
               TableHeaderCell(
                 content: Text('Header 2'),
                 ratio: 10,
               ),
             ],
-
             rows: [
               for (int i = 0; i < 100; i++)
                 TableBodyRow(
+                  onTap: () => this.onTap('Row $i is tapped'),
                   cells: [
                     TableBodyCell(
                       content: Text('${i + 1}'),
                     ),
-
                     TableBodyCell(
                       content: Text('Cell'),
                     ),
-
                     TableBodyCell(
                       content: Text('Cell'),
                     ),

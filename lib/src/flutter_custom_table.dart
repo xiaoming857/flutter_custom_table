@@ -27,11 +27,11 @@ class FlutterCustomTable extends StatelessWidget {
 
 
   FlutterCustomTable({
+    Key key,
     @required this.headers,
     this.headersColor = Colors.transparent,
     this.headersHeight = 40.0,
     this.headersVerticalAlignment = VerticalAlignment.middle,
-    Key key,
     this.margin = const EdgeInsets.all(10.0),
     @required this.rows,
   }) : assert(headers != null && headers.isNotEmpty),
@@ -103,17 +103,17 @@ class FlutterCustomTable extends StatelessWidget {
 
 /// [TableHeaderCell]
 class TableHeaderCell {
+  final Key key;
   final Widget content;
   final HorizontalAlignment horizontalAlignment;
   final double horizontalPadding;
-  final Key key;
   final int ratio;
 
   TableHeaderCell({
+    this.key,
     @required this.content,
     this.horizontalAlignment = HorizontalAlignment.left,
     this.horizontalPadding = 15.0,
-    this.key,
     this.ratio = 1,
   }) :assert(content != null),
         assert(horizontalAlignment != null),
@@ -166,10 +166,10 @@ class TableHeaderCell {
         break;
     }
     return _TableHeaderCell(
+      key: this.key,
       alignment: alignment,
       content: this.content,
       horizontalPadding: this.horizontalPadding,
-      key: this.key,
       ratio: this.ratio,
     );
   }
@@ -186,10 +186,10 @@ class _TableHeaderCell extends StatelessWidget {
   final int ratio;
 
   _TableHeaderCell({
+    @required Key key,
     @required this.alignment,
     @required this.content,
     @required this.horizontalPadding,
-    @required Key key,
     @required this.ratio,
   }) : assert(alignment != null),
         assert(content != null),
@@ -215,14 +215,16 @@ class _TableHeaderCell extends StatelessWidget {
 
 /// [TableBodyRow]
 class TableBodyRow {
+  final Key key;
   final List<TableBodyCell> cells;
   final double height;
-  final Key key;
+  final VoidCallback onTap;
 
   TableBodyRow({
+    this.key,
     @required this.cells,
     this.height = 35.0,
-    this.key,
+    this.onTap,
   }) : assert(cells != null && cells.isNotEmpty),
         assert(height != null && height > 0);
 
@@ -232,11 +234,12 @@ class TableBodyRow {
     @required List<int> ratios,
   }) {
     return _TableBodyRow(
+      key: this.key,
       alignments: alignments,
       cells: this.cells,
       height: this.height,
       horizontalPaddings: horizontalPaddings,
-      key: this.key,
+      onTap: this.onTap,
       ratios: ratios,
     );
   }
@@ -249,16 +252,18 @@ class TableBodyRow {
 class _TableBodyRow extends StatelessWidget {
   final List<Alignment> alignments;
   final List<TableBodyCell> cells;
-  final List<double> horizontalPaddings;
-  final List<int> ratios;
   final double height;
+  final List<double> horizontalPaddings;
+  final VoidCallback onTap;
+  final List<int> ratios;
 
   _TableBodyRow({
+    Key key,
     @required this.alignments,
     @required this.cells,
     @required this.height,
     @required this.horizontalPaddings,
-    Key key,
+    @required this.onTap,
     @required this.ratios,
   }) : assert(alignments != null && alignments.isNotEmpty),
         assert(cells != null && cells.isNotEmpty),
@@ -271,7 +276,7 @@ class _TableBodyRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: this.onTap ?? () {},
       child: SizedBox(
         height: this.height,
         child: Row(
@@ -294,12 +299,12 @@ class _TableBodyRow extends StatelessWidget {
 
 /// [TableBodyCell]
 class TableBodyCell {
-  final Widget content;
   final Key key;
+  final Widget content;
 
   TableBodyCell({
+    this.key,
     @required this.content,
-    this.key
   }) : assert(content != null);
 
   _TableBodyCell _build({
@@ -308,9 +313,9 @@ class TableBodyCell {
     int ratio = 1,
   }) {
     return _TableBodyCell(
+      key: this.key,
       alignment: alignment,
       content: this.content,
-      key: this.key,
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       ratio: ratio,
     );
@@ -329,9 +334,9 @@ class _TableBodyCell extends StatelessWidget {
 
 
   _TableBodyCell({
+    Key key,
     this.alignment,
     @required this.content,
-    Key key,
     this.padding,
     this.ratio,
   }) : assert(alignment != null),
